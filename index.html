@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piki-piki</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #000;
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .app {
+      height: 100vh;
+      width: 100%;
+      position: relative;
+      background: #111;
+    }
+
+    .logo {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      font-size: 25px;
+      font-weight: bold;
+      z-index: 5;
+    }
+
+    .video {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(160deg,#333,#111);
+      font-size: 25px;
+      text-align: center;
+    }
+
+    .info {
+      position: absolute;
+      bottom: 75px;
+      left: 15px;
+      right: 80px;
+      z-index: 5;
+    }
+
+    .username {
+      font-size: 19px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .caption {
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .buttons {
+      position: absolute;
+      right: 15px;
+      bottom: 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      z-index: 5;
+    }
+
+    .btn {
+      text-align: center;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .count {
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 58px;
+      background: #000;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .nav {
+      text-align: center;
+      font-size: 22px;
+    }
+
+    .nav span {
+      display: block;
+      font-size: 10px;
+      margin-top: 3px;
+    }
+
+    .upload {
+      background: white;
+      color: black;
+      padding: 7px 14px;
+      border-radius: 10px;
+      font-size: 22px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="logo">Piki-piki</div>
+
+  <div class="video">
+    🎬<br>
+    Your Short Video
+  </div>
+
+  <div class="info">
+    <div class="username">@pikipiki_user</div>
+    <div class="caption">
+      Welcome to Piki-piki! 🔥<br>
+      Share your short videos with the world.
+    </div>
+  </div>
+
+  <div class="buttons">
+
+    <div class="btn" onclick="likeVideo()">
+      ❤️
+      <div class="count" id="likes">0</div>
+    </div>
+
+    <div class="btn">
+      💬
+      <div class="count">0</div>
+    </div>
+
+    <div class="btn">
+      ↗️
+      <div class="count">Share</div>
+    </div>
+
+  </div>
+
+  <div class="bottom">
+
+    <div class="nav">
+      🏠
+      <span>Home</span>
+    </div>
+
+    <div class="nav">
+      🔍
+      <span>Search</span>
+    </div>
+
+    <div class="upload">
+      ＋
+    </div>
+
+    <div class="nav">
+      🔔
+      <span>Activity</span>
+    </div>
+
+    <div class="nav">
+      👤
+      <span>Profile</span>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  let likes = 0;
+
+  function likeVideo() {
+    likes++;
+    document.getElementById("likes").innerText = likes;
+  }
+</script>
+
+</body>
+</html>
