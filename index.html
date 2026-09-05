@@ -501,6 +501,10 @@ function profile(){
 }
 
 </script>
+const user = localStorage.getItem("piki_user");
 
+if (!user) {
+  window.location.href = "login.html";
+}
 </body>
 </html>
