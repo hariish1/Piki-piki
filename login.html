@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Piki-piki Login</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  background:#000;
+  color:#fff;
+  font-family:Arial,sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.container{
+  width:100%;
+  max-width:400px;
+  padding:25px;
+}
+
+.logo{
+  text-align:center;
+  font-size:38px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#aaa;
+  margin-bottom:30px;
+}
+
+.box{
+  background:#151515;
+  padding:25px;
+  border-radius:18px;
+}
+
+input{
+  width:100%;
+  padding:15px;
+  margin-bottom:14px;
+  border:none;
+  border-radius:10px;
+  background:#252525;
+  color:#fff;
+  font-size:16px;
+  outline:none;
+}
+
+button{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:10px;
+  background:#fff;
+  color:#000;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:active{
+  transform:scale(.98);
+}
+
+.switch{
+  text-align:center;
+  margin-top:20px;
+  color:#aaa;
+  font-size:14px;
+}
+
+.switch span{
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.message{
+  text-align:center;
+  margin-top:15px;
+  font-size:14px;
+  color:#7cff8a;
+  min-height:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="logo">Piki-piki</div>
+
+  <div class="subtitle">
+    Short videos. Big moments. 🔥
+  </div>
+
+  <div class="box">
+
+    <!-- LOGIN -->
+
+    <div id="loginBox">
+
+      <input
+        type="email"
+        id="loginEmail"
+        placeholder="Email"
+      >
+
+      <input
+        type="password"
+        id="loginPassword"
+        placeholder="Password"
+      >
+
+      <button onclick="login()">
+        Log In
+      </button>
+
+      <div class="switch">
+        Don't have an account?
+        <span onclick="showSignup()">Sign Up</span>
+      </div>
+
+    </div>
+
+
+    <!-- SIGNUP -->
+
+    <div id="signupBox" style="display:none;">
+
+      <input
+        type="text"
+        id="signupName"
+        placeholder="Username"
+      >
+
+      <input
+        type="email"
+        id="signupEmail"
+        placeholder="Email"
+      >
+
+      <input
+        type="password"
+        id="signupPassword"
+        placeholder="Password"
+      >
+
+      <button onclick="signup()">
+        Create Account
+      </button>
+
+      <div class="switch">
+        Already have an account?
+        <span onclick="showLogin()">Log In</span>
+      </div>
+
+    </div>
+
+    <div
+      class="message"
+      id="message">
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+function showSignup(){
+
+  document.getElementById("loginBox")
+    .style.display="none";
+
+  document.getElementById("signupBox")
+    .style.display="block";
+
+  document.getElementById("message")
+    .innerText="";
+
+}
+
+
+function showLogin(){
+
+  document.getElementById("signupBox")
+    .style.display="none";
+
+  document.getElementById("loginBox")
+    .style.display="block";
+
+  document.getElementById("message")
+    .innerText="";
+
+}
+
+
+function signup(){
+
+  let name =
+    document.getElementById("signupName").value;
+
+  let email =
+    document.getElementById("signupEmail").value;
+
+  let password =
+    document.getElementById("signupPassword").value;
+
+  if(!name || !email || !password){
+
+    document.getElementById("message")
+      .innerText="Please fill all fields.";
+
+    return;
+  }
+
+  localStorage.setItem(
+    "piki_user",
+    JSON.stringify({
+      name:name,
+      email:email
+    })
+  );
+
+  document.getElementById("message")
+    .innerText =
+    "Account created successfully! 🎉";
+
+}
+
+
+function login(){
+
+  let email =
+    document.getElementById("loginEmail").value;
+
+  let password =
+    document.getElementById("loginPassword").value;
+
+  if(!email || !password){
+
+    document.getElementById("message")
+      .innerText="Enter email and password.";
+
+    return;
+  }
+
+  let user =
+    localStorage.getItem("piki_user");
+
+  if(user){
+
+    document.getElementById("message")
+      .innerText =
+      "Login successful! 🚀";
+
+    setTimeout(function(){
+
+      window.location.href="index.html";
+
+    },1000);
+
+  }else{
+
+    document.getElementById("message")
+      .innerText =
+      "Please create an account first.";
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
