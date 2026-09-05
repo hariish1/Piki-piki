@@ -1,123 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Piki-piki</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<title>Piki-piki</title>
 
-    body {
-      background: #000;
-      color: white;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-    }
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    .app {
-      height: 100vh;
-      width: 100%;
-      position: relative;
-      background: #111;
-    }
+html,body{
+  width:100%;
+  height:100%;
+  background:#000;
+  color:#fff;
+  font-family:Arial,sans-serif;
+  overflow:hidden;
+}
 
-    .logo {
-      position: absolute;
-      top: 18px;
-      left: 18px;
-      font-size: 25px;
-      font-weight: bold;
-      z-index: 5;
-    }
+.app{
+  width:100%;
+  height:100vh;
+  position:relative;
+  background:#000;
+}
 
-    .video {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(160deg,#333,#111);
-      font-size: 25px;
-      text-align: center;
-    }
+/* TOP LOGO */
 
-    .info {
-      position: absolute;
-      bottom: 75px;
-      left: 15px;
-      right: 80px;
-      z-index: 5;
-    }
+.logo{
+  position:absolute;
+  top:18px;
+  left:18px;
+  z-index:20;
+  font-size:24px;
+  font-weight:bold;
+}
 
-    .username {
-      font-size: 19px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
+/* VIDEO FEED */
 
-    .caption {
-      font-size: 15px;
-      line-height: 1.4;
-    }
+.feed{
+  width:100%;
+  height:100%;
+  overflow-y:auto;
+  scroll-snap-type:y mandatory;
+  scrollbar-width:none;
+}
 
-    .buttons {
-      position: absolute;
-      right: 15px;
-      bottom: 100px;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-      z-index: 5;
-    }
+.feed::-webkit-scrollbar{
+  display:none;
+}
 
-    .btn {
-      text-align: center;
-      font-size: 28px;
-      cursor: pointer;
-    }
+.video-card{
+  width:100%;
+  height:100vh;
+  position:relative;
+  scroll-snap-align:start;
+  background:#111;
+  overflow:hidden;
+}
 
-    .count {
-      font-size: 12px;
-      margin-top: 3px;
-    }
+.video-card video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  background:#111;
+}
 
-    .bottom {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 58px;
-      background: #000;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 10;
-    }
+/* VIDEO PLACEHOLDER */
 
-    .nav {
-      text-align: center;
-      font-size: 22px;
-    }
+.placeholder{
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  font-size:24px;
+  background:linear-gradient(160deg,#333,#111);
+}
 
-    .nav span {
-      display: block;
-      font-size: 10px;
-      margin-top: 3px;
-    }
+/* INFORMATION */
 
-    .upload {
-      background: white;
-      color: black;
-      padding: 7px 14px;
-      border-radius: 10px;
-      font-size: 22px;
-    }
-  </style>
+.info{
+  position:absolute;
+  left:15px;
+  right:85px;
+  bottom:85px;
+  z-index:10;
+  text-shadow:0 1px 4px #000;
+}
+
+.username{
+  font-size:19px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.caption{
+  font-size:15px;
+  line-height:1.4;
+}
+
+/* ACTION BUTTONS */
+
+.actions{
+  position:absolute;
+  right:14px;
+  bottom:110px;
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+  z-index:15;
+}
+
+.action{
+  text-align:center;
+  font-size:30px;
+  cursor:pointer;
+  user-select:none;
+}
+
+.action:active{
+  transform:scale(1.2);
+}
+
+.count{
+  font-size:12px;
+  margin-top:3px;
+}
+
+/* BOTTOM NAV */
+
+.bottom{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:60px;
+  background:rgba(0,0,0,.95);
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:30;
+}
+
+.nav{
+  text-align:center;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.nav span{
+  display:block;
+  font-size:10px;
+  margin-top:3px;
+}
+
+.upload{
+  background:#fff;
+  color:#000;
+  width:48px;
+  height:34px;
+  border-radius:10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:25px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* UPLOAD INPUT */
+
+#videoInput{
+  display:none;
+}
+
+/* UPLOAD MESSAGE */
+
+.upload-message{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:rgba(0,0,0,.85);
+  padding:20px;
+  border-radius:15px;
+  text-align:center;
+  display:none;
+  z-index:100;
+}
+
+</style>
 </head>
 
 <body>
@@ -126,60 +204,127 @@
 
   <div class="logo">Piki-piki</div>
 
-  <div class="video">
-    🎬<br>
-    Your Short Video
+  <div class="feed" id="feed">
+
+    <!-- VIDEO 1 -->
+
+    <div class="video-card">
+
+      <div class="placeholder">
+        🎬<br>
+        Piki-piki<br>
+        Short Video
+      </div>
+
+      <div class="info">
+        <div class="username">@pikipiki_user</div>
+
+        <div class="caption">
+          Welcome to Piki-piki! 🔥<br>
+          Share your short videos with the world.
+        </div>
+      </div>
+
+      <div class="actions">
+
+        <div class="action" onclick="likeVideo(this)">
+          ❤️
+          <div class="count">0</div>
+        </div>
+
+        <div class="action" onclick="commentVideo()">
+          💬
+          <div class="count">0</div>
+        </div>
+
+        <div class="action" onclick="shareVideo()">
+          ↗️
+          <div class="count">Share</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- VIDEO 2 -->
+
+    <div class="video-card">
+
+      <div class="placeholder">
+        🎥<br>
+        More videos coming soon...
+      </div>
+
+      <div class="info">
+        <div class="username">@piki_creator</div>
+
+        <div class="caption">
+          This is your Piki-piki feed 🚀
+        </div>
+      </div>
+
+      <div class="actions">
+
+        <div class="action" onclick="likeVideo(this)">
+          ❤️
+          <div class="count">0</div>
+        </div>
+
+        <div class="action" onclick="commentVideo()">
+          💬
+          <div class="count">0</div>
+        </div>
+
+        <div class="action" onclick="shareVideo()">
+          ↗️
+          <div class="count">Share</div>
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <div class="info">
-    <div class="username">@pikipiki_user</div>
-    <div class="caption">
-      Welcome to Piki-piki! 🔥<br>
-      Share your short videos with the world.
-    </div>
+
+  <!-- UPLOAD MESSAGE -->
+
+  <div class="upload-message" id="uploadMessage">
+    <h3>Upload Video</h3>
+    <p>Select a short video from your phone.</p>
   </div>
 
-  <div class="buttons">
 
-    <div class="btn" onclick="likeVideo()">
-      ❤️
-      <div class="count" id="likes">0</div>
-    </div>
-
-    <div class="btn">
-      💬
-      <div class="count">0</div>
-    </div>
-
-    <div class="btn">
-      ↗️
-      <div class="count">Share</div>
-    </div>
-
-  </div>
+  <!-- BOTTOM NAV -->
 
   <div class="bottom">
 
-    <div class="nav">
+    <div class="nav" onclick="goHome()">
       🏠
       <span>Home</span>
     </div>
 
-    <div class="nav">
+    <div class="nav" onclick="search()">
       🔍
       <span>Search</span>
     </div>
 
-    <div class="upload">
+    <label class="upload">
       ＋
-    </div>
+      <input
+        type="file"
+        id="videoInput"
+        accept="video/*"
+        onchange="uploadVideo(event)"
+      >
+    </label>
 
-    <div class="nav">
+    <div class="nav" onclick="activity()">
       🔔
       <span>Activity</span>
     </div>
 
-    <div class="nav">
+    <div class="nav" onclick="profile()">
       👤
       <span>Profile</span>
     </div>
@@ -188,13 +333,173 @@
 
 </div>
 
-<script>
-  let likes = 0;
 
-  function likeVideo() {
-    likes++;
-    document.getElementById("likes").innerText = likes;
+<script>
+
+/* LIKE */
+
+function likeVideo(button){
+
+  let count =
+    button.querySelector(".count");
+
+  let likes =
+    parseInt(count.innerText);
+
+  likes++;
+
+  count.innerText = likes;
+}
+
+
+/* COMMENT */
+
+function commentVideo(){
+
+  let comment =
+    prompt("Write your comment:");
+
+  if(comment){
+
+    alert("Comment added: " + comment);
+
   }
+
+}
+
+
+/* SHARE */
+
+function shareVideo(){
+
+  if(navigator.share){
+
+    navigator.share({
+      title:"Piki-piki",
+      text:"Check out this video on Piki-piki!"
+    });
+
+  }else{
+
+    alert("Share feature is not supported on this browser.");
+
+  }
+
+}
+
+
+/* UPLOAD */
+
+function uploadVideo(event){
+
+  const file =
+    event.target.files[0];
+
+  if(!file) return;
+
+  const url =
+    URL.createObjectURL(file);
+
+  const feed =
+    document.getElementById("feed");
+
+  const card =
+    document.createElement("div");
+
+  card.className =
+    "video-card";
+
+  card.innerHTML = `
+
+    <video
+      src="${url}"
+      autoplay
+      muted
+      loop
+      playsinline
+      controls>
+    </video>
+
+    <div class="info">
+
+      <div class="username">
+        @pikipiki_user
+      </div>
+
+      <div class="caption">
+        My new Piki-piki video 🔥
+      </div>
+
+    </div>
+
+    <div class="actions">
+
+      <div
+        class="action"
+        onclick="likeVideo(this)">
+        ❤️
+        <div class="count">0</div>
+      </div>
+
+      <div
+        class="action"
+        onclick="commentVideo()">
+        💬
+        <div class="count">0</div>
+      </div>
+
+      <div
+        class="action"
+        onclick="shareVideo()">
+        ↗️
+        <div class="count">
+          Share
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  feed.prepend(card);
+
+  card.scrollIntoView({
+    behavior:"smooth"
+  });
+
+}
+
+
+/* NAVIGATION */
+
+function goHome(){
+
+  document
+    .getElementById("feed")
+    .scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+}
+
+function search(){
+
+  alert("Search coming soon 🔍");
+
+}
+
+function activity(){
+
+  alert("Activity coming soon 🔔");
+
+}
+
+function profile(){
+
+  alert("Profile coming soon 👤");
+
+}
+
 </script>
 
 </body>
